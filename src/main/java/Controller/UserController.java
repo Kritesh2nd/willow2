@@ -73,8 +73,13 @@ public class UserController extends HttpServlet {
                 out.print("user.getId() "+user.getId());
                 HttpSession sess = request.getSession();
                 sess.setAttribute("username",user.getName());
+                
+                String idStr = String.valueOf(user.getId());
                 HttpSession sess1 = request.getSession();
-                sess1.setAttribute("userid",user.getId());
+                sess1.setAttribute("userid",idStr);
+                
+                HttpSession sess2 = request.getSession();
+                sess2.setAttribute("userObj",user);
                 
 //                request.setAttribute("cartCount",cartCount);
 //                HttpSession sess2 = request.getSession();
@@ -141,6 +146,8 @@ public class UserController extends HttpServlet {
             request.setAttribute("productdetail", pr);
             request.setAttribute("productsizecount", scList);
             
+            
+            
             out.print("size "+scList.size());
             
             RequestDispatcher rd = request.getRequestDispatcher("pages/productDetailsPage.jsp");
@@ -151,12 +158,48 @@ public class UserController extends HttpServlet {
             int uid = Integer.parseInt(request.getParameter("userid"));
             int pid = Integer.parseInt(request.getParameter("productid"));
             String size = request.getParameter("size");
-            out.print(size+"<br/>");
-            new UserService().insertCart(uid,pid,size);
-            out.print("Data inserted");
-            RequestDispatcher rd = request.getRequestDispatcher("pages/checoutPage.jsp");
-            rd.forward(request,response);
+            out.print(uid+" "+pid+" "+size+"<br/>");
+            if(uid==0){
+                RequestDispatcher rd = request.getRequestDispatcher("pages/signinup.jsp");
+                rd.forward(request,response);
+            }
+            else{
+                new UserService().insertCart(uid,pid,size);
+                out.print("Data inserted <br/>");
+                
+                RequestDispatcher rd = request.getRequestDispatcher("user?page=productDetailsPage&id="+pid);
+                rd.forward(request,response);
+            }
+        }
+        else if(page.equalsIgnoreCase("checkoutPage")){
+            out.print("check out page<br/>");
+            //first get product data from cart using join
+            int userId = Integer.parseInt(request.getParameter("id"));
             
+            out.print("userid="+userId+"<br/>");
+            
+            if(userId==0){
+                RequestDispatcher rd = request.getRequestDispatcher("pages/signinup.jsp");
+                rd.forward(request,response);
+            }
+            else{
+                List<Product> cartProductList = new UserService().getCartDataByUserId(userId);
+                request.setAttribute("cartProductList", cartProductList);
+                out.print("cartProductList="+cartProductList.size()+"<br/>");
+
+                RequestDispatcher rd = request.getRequestDispatcher("pages/checkoutPage.jsp");
+                rd.forward(request,response);
+            }
+        }
+        else if(page.equalsIgnoreCase("removeCartProduct")){
+            out.print("remov cart product page<br/>");
+            //first get product data from cart using join
+            int prdId = Integer.parseInt(request.getParameter("pid"));
+            int userId = Integer.parseInt(request.getParameter("id"));
+            out.print("prdId="+prdId+"<br/>");
+            new UserService().removeCartItem(prdId);
+            RequestDispatcher rd = request.getRequestDispatcher("user?page=checkoutPage&id="+userId);
+            rd.forward(request,response);
         }
         else{
             out.print("This page value dosent exist");

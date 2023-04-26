@@ -265,6 +265,11 @@ public class adminControl extends HttpServlet {@Override
                 out.print("ERROR: "+e);
             }
         }
+        else if(page.equalsIgnoreCase("productDelete")){
+            int id = Integer.parseInt(request.getParameter("id"));
+            new ProductService().deleteProduct(id);
+            response.sendRedirect("admin?page=productListPage");
+        }
         
         
         

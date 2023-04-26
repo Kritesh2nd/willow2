@@ -1,9 +1,6 @@
 <%@page import="Model.SizeCount"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-int userid = (int) session.getAttribute("userid");
-%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -125,7 +122,7 @@ int userid = (int) session.getAttribute("userid");
             <div class="prdDtlDescriptionSloth pb20">
               ${productdetail.description}
             </div>
-            <form action="user?page=addToCart" class="flex fdc bor" method="post">
+            <form action="user?page=addToCart&id=<%=userid%>" class="flex fdc bor" method="post">
               <div class="prdDtlSizeTitleSloth">
                 SIZE
               </div>
@@ -163,9 +160,11 @@ int userid = (int) session.getAttribute("userid");
         </div>
         <div class="prdDtlRevTrunk flex fdc bor">
           
-          <div class="prdDtlRevAddTrunk flex pb20 bor">
+          <div class="prdDtlRevAddTrunk flex pb20 <%=displayReview%> bor">
             <div class="prdDtlRevAddCrate flex fdc w100 bor">
-              <div class="prdDtlRevAddNameSloth">Kritesh Thapa</div>
+                <div class="prdDtlRevAddNameSloth">
+                    <%=username%>
+                </div>
               <form action="" class="prdDtlAddRevForm flex fdc bor" method="post">
                 <div class="prdDtlAddRevStartTrunk flex ptb10 aic">
                   <div class="prdDtlAddRevStartName pr10">Review</div>
@@ -236,9 +235,6 @@ int userid = (int) session.getAttribute("userid");
             </div>
             <div class="prdDtlRevLine bor"></div>
           </div>
-
-
-          
         </div>
       </div>
 

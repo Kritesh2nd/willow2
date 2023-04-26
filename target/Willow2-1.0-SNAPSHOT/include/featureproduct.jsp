@@ -71,6 +71,7 @@
                 width:20%;
                 padding:15px;
                 padding-bottom:10px;
+                text-decoration:none;
             }
             .prod_image_sloth{
                 height:260px;
@@ -127,7 +128,7 @@
 
                         <!-- FOR EACH SLOTH -->
                         <c:forEach items="${featurePList}" var="fplist">
-                            <div class="prod_sloth bor br3">
+                            <a href="user?page=productDetailsPage&id=${fplist.id}" class="prod_sloth bor br3">
                                 <div class="inr_prod_sloth bor flex fdc">
                                     <div class="prod_image_sloth borx2 br3">
                                         <img src="${fplist.image}" alt="" class="prod_img_img w100">
@@ -159,7 +160,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </c:forEach>
                         <!-- FOR EACH END SLOTH -->
 

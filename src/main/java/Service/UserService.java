@@ -3,6 +3,7 @@ package Service;
 import DBConnection.DBConnection;
 import Model.Product;
 import Model.User;
+import Support.index;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +47,9 @@ public class UserService {
                 us.setId(rs.getInt("id"));
                 us.setName(rs.getString("name"));
                 us.setEmail(rs.getString("email"));
+                us.setAddress(rs.getString("address"));
                 us.setPassword(rs.getString("password"));
+                us.setPhnumber(rs.getString("number"));
             }
         }
          catch(SQLException e){
@@ -148,5 +151,77 @@ public class UserService {
             e.printStackTrace();
         }
         return cartCount;
+    }
+
+    public List<User> getCartListByUserId(int id){
+        List<User> userlist = new ArrayList<>();
+        String query = "select * from cart where uid=?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                User us = new User();
+                us = new User();
+                us.setUid(rs.getInt("uid"));
+                us.setPid(rs.getInt("pid"));
+                us.setSize(rs.getString("size"));
+                userlist.add(us);
+            }
+        }
+         catch(SQLException e){
+            e.printStackTrace();
+             System.out.println("Error: "+e);
+        }
+        return userlist;
+    }
+    
+    public List<Product> getCartDataByUserId(int id){
+        List<Product> prdList = new ArrayList<>();
+        String query = "select * from cart as A inner join productinfo as B on A.pid = B.id where A.uid=?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Product pr = new Product();
+                pr = new Product();
+                pr.setId(rs.getInt("id"));
+                pr.setName(rs.getString("name"));
+                pr.setDescription(rs.getString("description"));
+                pr.setImage(rs.getString("image"));
+                pr.setBrand(rs.getString("brand"));
+                pr.setCategory(rs.getString("category"));
+                pr.setPrice(rs.getInt("price"));
+                pr.setDiscount(rs.getInt("discount"));
+                pr.setDiscountedprice((int) new index().getPercentOf(pr.getDiscount(),pr.getPrice()));
+                pr.setTags(rs.getString("tags"));
+                pr.setReleasedate(rs.getString("releasedate"));
+                pr.setSize(rs.getString("size"));
+                prdList.add(pr);
+            }
+        }
+         catch(SQLException e){
+            e.printStackTrace();
+             System.out.println("Error: "+e);
+        }
+        return prdList;
+    }
+    
+    public void removeCartItem(int id){
+        String query = "delete from cart where id = ?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,id);
+            ps.execute();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) {
+        UserService us = new UserService();
+        List<Product> userlist = us.getCartDataByUserId(4);
+        System.out.println("userlist "+userlist+" |||| "+userlist.size());
     }
 }

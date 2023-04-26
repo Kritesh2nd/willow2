@@ -3,6 +3,9 @@ public class User {
     private String name=null,email=null,password=null,address=null,dob=null,wishlist=null,cart=null,mostvisited=null,phnumber=null;
     private int id=0,maxspent=0,primecount=0;
 
+    private int cid=0,uid=0,pid=0;
+    private String size="";
+
     public String getName() {
         return name;
     }
@@ -98,4 +101,37 @@ public class User {
     public void setPrimecount(int primecount) {
         this.primecount = primecount;
     }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
 }

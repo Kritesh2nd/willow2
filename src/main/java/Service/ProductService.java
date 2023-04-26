@@ -367,6 +367,17 @@ public class ProductService {
         ps.setInt(3,sc.getIdd());
         ps.execute();
     }
+    public void deleteProduct(int id){
+        String query = "delete from productinfo where id = ?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,id);
+            ps.execute();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
         ProductService ps = new ProductService();
         
@@ -374,3 +385,14 @@ public class ProductService {
         
     }
 }
+
+
+
+/*
+
+select * from displayproduct as A inner join productinfo as B on A.clothcode = B.id where A.displayto = 'feature'
+select * from cart as A inner join productinfo as B on A.pid = B.id where A.uid = 4;
+
+
+
+*/

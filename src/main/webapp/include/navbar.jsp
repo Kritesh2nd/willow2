@@ -1,7 +1,13 @@
+<%@page import="Service.UserService"%>
+<%@page import="java.util.List"%>
+<%@page import="Model.User"%>
+<%@page import="Model.User"%>
 <%@page import="Support.index"%>
 <%
 String usercheck = (String) session.getAttribute("usercheck");
 String username = (String) session.getAttribute("username");
+String useraddress = (String) session.getAttribute("address");
+User user = (User) session.getAttribute("userObj");
 
 boolean toDisplayLoginsBool = false;
 String firstname = "Hello";
@@ -11,6 +17,18 @@ if(username!=null){
 }          
 String toDisplayUsername = new index().signedInOrOut(toDisplayLoginsBool);
 String toDisplaySignIn = new index().signedInOrOut(!toDisplayLoginsBool);
+
+
+String userIdStr = (String) session.getAttribute("userid");   
+int userid=0;
+String displayReview = "none";
+if(userIdStr!=null){
+    userid = Integer.parseInt(userIdStr);
+    displayReview="";
+}
+
+List<User> cartlist = new UserService().getCartListByUserId(userid);
+int cartSize = cartlist.size();
 %>
 <!DOCTYPE html>
 <html>
@@ -154,9 +172,9 @@ String toDisplaySignIn = new index().signedInOrOut(!toDisplayLoginsBool);
               <img src="icons/signin.png" alt="" class="nav_logo nav_logo_signin bor">
             </li>
             <li class="nav_li bor flexmid rel">
-              <a href="user?page=cart" class="nav_ahr bor flexmid">Cart</a>&nbsp;
+                <a href="user?page=checkoutPage&id=<%=userid%>" class="nav_ahr bor flexmid">Cart</a>&nbsp;
               <img src="icons/cart.png" alt="" class="nav_logo nav_logo_cart bor">
-              <span class="nav_cart_count flexmid abs borr">0</span>
+              <span class="nav_cart_count flexmid abs borr" data-cart="<%=cartSize%>"><%=cartSize%></span>
             </li>
             <li class="nav_li bor flexmid">
               <a href="user?page=purchased" class="nav_ahr bor flexmid">Purchased</a>&nbsp;
