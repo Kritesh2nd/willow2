@@ -1,0 +1,116 @@
+cd/
+cd xampp/mysql/bin
+mysql -u root -p
+
+show databases;
+drop database willow;
+create database willow;
+use willow;
+create table productinfo(
+Id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+description varchar(255),
+image varchar(255),
+brand varchar(255),
+category varchar(255),
+price int(7),
+discount int(5),
+tags varchar(255),
+totalcount int(5),
+releasedate varchar(255),
+visibility boolean,
+focused1 boolean,
+focused2 boolean,
+focused3 boolean
+);
+insert into productinfo(name,description,image,brand,category,price,discount,tags,totalcount,releasedate,visibility,focused1,focused2,focused3) value 
+("Orange sweater","This is a orange sweater","image//upload//picssweater.jpg","Willow","Female",4600,0,"orange, sweater",0,"04-04-2023",true,true,true,true),
+("Grey Tshirt","This is a orange sweater","image//upload//picsmodel1.jpg","Willow","Female",3330,0,"grey, tshirt",0,"04-04-2023",true,true,true,true),
+("Blue Jeans","This is a orange sweater","image//upload//picspant.jpg","Willow","Female",2000,0,"blue, jeans",0,"04-04-2023",true,true,true,true),
+("Blue Jeans","This is a orange sweater","image//upload//picspant.jpg","Willow","male",1995,0,"blue, jeans",0,"04-04-2023",true,true,true,true),
+("Warm cotton Sweater","This is a orange sweater","image//upload//picssweater.jpg","Willow","Female",4500,0,"white, sweater",0,"04-04-2023",true,true,true,true),
+("Balck Pink Tshirt","This is a orange sweater","image//upload//picstshirt1.jpg","Willow","Female",3400,0,"balck, pink, tshirt",0,"04-04-2023",true,true,true,true),
+("Grey shirt","This is a orange sweater","image//upload//picstshirt1.jpg","Willow","Female",2800,0,"grey, shirt",0,"04-04-2023",true,true,true,true),
+("Cotton Pants","This is a orange sweater","image//upload//picspant.jpg","Willow","Female",2600,0,"cotton, pant",0,"04-04-2023",true,true,true,true),
+("Box Pant","This is a orange sweater","image//upload//picspant.jpg","Willow","Female",2400,0,"box, pant",0,"04-04-2023",true,true,true,true),
+("White blue hoodie","This is a orange sweater","image//upload//picshoodie.jpg","Willow","Female",3130,0,"white, blue, hoodie",0,"04-04-2023",true,true,true,true),
+("Blue Pajama","This is a orange sweater","image//upload//picspant.jpg","Willow","Both",3130,0,"blue, pajama",0,"04-04-2023",true,true,true,true),
+("White and blue stripes tshirt","This is a orange sweater","image//upload//picstshirt1.jpg","Willow","Both",3130,0,"white, blue, tshirt",0,"04-04-2023",true,true,true,true)
+;
+create table sizecount(
+Id int PRIMARY KEY AUTO_INCREMENT,
+pid int(5),
+size varchar(255),
+count int(5)
+);
+insert into sizecount(pid,size,count) values
+(1,"xl",13),(1,"2xl",15),(1,"3xl",10),(1,"4xl",8),
+(2,"xl",16),(2,"2xl",18),(2,"3xl",20),(2,"4xl",22),
+(3,"xl",13),(3,"2xl",15),(3,"3xl",10),(3,"4xl",8),
+(4,"xl",16),(4,"2xl",18),(4,"3xl",20),(4,"4xl",22),
+(5,"xl",13),(5,"2xl",15),(5,"3xl",10),(5,"4xl",8),
+(6,"xl",16),(6,"2xl",18),(6,"3xl",20),(6,"4xl",22),
+(7,"xl",13),(7,"2xl",15),(7,"3xl",10),(7,"4xl",8),
+(8,"xl",16),(8,"2xl",18),(8,"3xl",20),(8,"4xl",22),
+(9,"xl",13),(9,"2xl",15),(9,"3xl",10),(9,"4xl",8),
+(10,"xl",16),(10,"2xl",18),(10,"3xl",20),(10,"4xl",22)
+;
+create table userinfo(
+Id int PRIMARY KEY AUTO_INCREMENT,
+name varchar(255),
+email varchar(255),
+address varchar(255),
+dob varchar(255),
+wishlist varchar(255),
+cart varchar(255),
+mostvisited varchar(255),
+password varchar(255),
+number varchar(255),
+maxspent int(10),
+primecount int(5)
+);
+insert into userinfo(name,email,address,dob,wishlist,cart,mostvisited,password,number,maxspent,primecount)values
+("Kritesh Thapa","kritesh@willow.com","kusunti","28-06-2002","1,3,4","","","5f4dcc3b5aa765d61d8327deb882cf99","9876543210",0,0),
+("Sunit Shakya","sunit@gmail.com","manbhanwan","01-05-2002","3,4","","","5f4dcc3b5aa765d61d8327deb882cf99","9876543210",0,0),
+("Sandeep Rai","sandeep@gmail.com","manbhanwan","02-06-2002","1,2,4","","","5f4dcc3b5aa765d61d8327deb882cf99","9876543210",0,0),
+("Swastika Thapa Magar","swastika@gmail.com","jwlakhel","03-05-2002","2,3,4","","","5f4dcc3b5aa765d61d8327deb882cf99","9876543210",0,0),
+("Manzil Shakya","manzil@gmail.com","balkumari","04-08-2002","1,3,,5","","","5f4dcc3b5aa765d61d8327deb882cf99","9876543210",0,0)
+;
+create table cart(
+id int PRIMARY KEY AUTO_INCREMENT,
+uid int(5),
+pid int(5),
+size varchar(10)
+);
+create table review(
+id int PRIMARY KEY AUTO_INCREMENT,
+uid int(5),
+pid int(5),
+star int(5),
+review varchar(255),
+date varchar(20)
+);
+
+drop table purchased;
+create table purchased(
+id int PRIMARY KEY AUTO_INCREMENT,
+uid int(10),
+price int(10),
+stage int(5),
+name varchar(50),
+brand varchar(50),
+size varchar(50),
+date varchar(50),
+review varchar(20)
+);
+create table review(
+id int PRIMARY KEY AUTO_INCREMENT,
+uid int(5),
+pid int(5),
+star int(5),
+review varchar(255),
+date varchar(20)
+);
+select*from productinfo;
+select*from userinfo;
+select*from sizecount;
