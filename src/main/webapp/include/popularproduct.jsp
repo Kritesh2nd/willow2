@@ -1,7 +1,4 @@
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@page import="Model.Product"%>
-<%@page import="Support.index"%>
-<%@page import="Model.Productx"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%--<c:forEach items="${productlist}" var="pl">--%>
 <!DOCTYPE html>
@@ -9,8 +6,8 @@
     <head>
         <title>Product | 01</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/stylex.css">
+<!--        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/stylex.css">-->
         <script src="https://kit.fontawesome.com/5045e83b56.js" crossorigin="anonymous"></script>
         <style>
             .productBody{
@@ -74,6 +71,7 @@
                 width:20%;
                 padding:15px;
                 padding-bottom:10px;
+                text-decoration:none;
             }
             .prod_image_sloth{
                 height:260px;
@@ -129,34 +127,23 @@
                     <div class="inr_prod_list_box bor flex ">
 
                         <!-- FOR EACH SLOTH -->
-                        <c:forEach items="${popularPList}" var="pplist">
-                        <%
-//                            Product p =(Product) pageContext.getAttribute("pplist");
-//    //                        int blackStartCount = p.getRpoint();
-//    //                        int whiteStartCount = 5 - p.getRpoint();
-//                            int blackStartCount = 5;
-//                            int whiteStartCount = 3;
-//                            double discountedPrice = new index().getPercentOf(p.getDiscount(),p.getPrice());
-//                            String toStrikeStr = new index().toStrikeByDiscount(p.getDiscount());
-//                            String toDisplayStr = new index().toDisplayByDiscount(p.getDiscount());
-//                            String toDisplayNewStr = new index().isProductNewByDate(p.getReleasedate());
-                        %>
-                            <div class="prod_sloth bor br3">
+                        <c:forEach items="${popularPList}" var="fplist">
+                            <a href="user?page=productDetailsPage&id=${fplist.id}" class="prod_sloth bor br3">
                                 <div class="inr_prod_sloth bor flex fdc">
                                     <div class="prod_image_sloth borx2 br3">
-                                        <img src="${pplist.image}" alt="" class="prod_img_img w100">
+                                        <img src="${fplist.image}" alt="" class="prod_img_img w100">
                                     </div>
                                     <div class="prod_newitem_sloth prod_ff5 bor ">New!</div>
                                     <div class="prod_name_sloth prod_ff5 bor">
-                                        ${pplist.name}
+                                        ${fplist.name}
                                     </div>
                                     
                                     <div class="prod_discount_price_sloth prod_ff5 bor">
-                                        RS ${pplist.price}(${fplist.discount}% off)
+                                        RS ${fplist.price}(${fplist.discount}% off)
                                     </div>
                                     
                                     <div class="prod_price_sloth prod_ff5 bor">
-                                        RS ${pplist.price}
+                                        RS ${fplist.price}
                                     </div>
                                     <div class="prod_review_crate prod_ff5 bor flex">
                                         <div class="prod_review_start_crate flex aic pr10 bor">
@@ -173,7 +160,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </c:forEach>
                         <!-- FOR EACH END SLOTH -->
 
@@ -188,4 +175,3 @@
         </script>
     </body>
 </html>
-                         

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -23,12 +24,13 @@
       .checkoutSubTitleSloth span[data-active="true"]{height:2px;bottom:-5px;}
 
       /* .purchasedTable */
+      .purchasedTableTrunk{min-height:400px;}
       .purchasedTable{width:100%;border-spacing:0;box-shadow:2px 2px 2px #888;}
-      .purchasedTable tr td:first-child{width:20px;padding-left:15px;;text-align: center;}
+      .purchasedTable tr td:first-child{padding-left:15px;text-align: left;}
       .purchasedTable tr td:nth-child(2){text-align: left;padding-left:20px;}
 
-      .purchasedTable tr:first-child td{font-weight: bold;background:var(--col7);color:#fff;}
-      .purchasedTable tr:nth-child(even){background:#ccc;}
+      .purchasedTable tr:first-child td{font-weight: bold;background:var(--col7);color:#000;}
+      .purchasedTable tr:nth-child(odd){background:#ccc;}
       .purchasedTable tr td{padding:12px 0;text-align: center;}
       
       /* second purchased table */
@@ -74,39 +76,47 @@
             Purchased
             <span class="abs" data-active="true"></span>
           </div>
-          <div class="checkoutSubTitleSloth rel">
+          <div class="checkoutSubTitleSloth rel none">
             Ordered
             <span class="abs" data-active=""></span>
           </div>
         </div>
         <!-- product list table -->
-        <div class="purchasedTableTrunk flex pb20 bor none">
+        <div class="purchasedTableTrunk flex fdc pb20 bor">
           <table class="purchasedTable bor" data-table="purchased">
             <tr>
-              <td>S.N.</td>
+              
               <td>Name</td>
               <td>Brand</td>
               <td>Price</td>
               <td>Size</td>
-              <td>Review</td>
+              
               <td>Purchased Date</td>
               <td>Details</td>
             </tr>
             <!-- for each loop start -->
+            <c:forEach items="${purchasedList}" var="purData">
             <tr>
-              <td>1</td>
-              <td>Blue cotton shirt</td>
+              
+              <td>
+                  ${purData.name}
+              </td>
               <td>Willow</td>
-              <td>NRS 4000</td>
-              <td>xl</td>
-              <td>4.5</td>
-              <td>23-04-2023</td>
+              <td>
+                  NRS ${purData.price}
+              </td>
+              <td>
+                  ${purData.size}
+              </td>
+              <td>
+                  ${purData.date}
+              </td>
               <td>
                 <a href="#" class="purchasedDetailLink txtx">Details</a>
               </td>
             </tr>
-
-            <tr><td>2</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
+            </c:forEach>
+<!--            <tr><td>2</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
             <tr><td>3</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
             <tr><td>4</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
             <tr><td>5</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
@@ -115,12 +125,12 @@
             <tr><td>8</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
             <tr><td>9</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
             <tr><td>10</td><td>Blue cotton shirt</td><td>Willow</td><td>NRS 4000</td><td>xl</td><td>4.5</td><td>23-04-2023</td><td><a href="#" class="purchasedDetailLink txtx">Details</a></td></tr>
-            <!-- for each loop end -->
+             for each loop end -->
           </table>
         </div>
 
         <!-- second table trunk -->
-        <div class="purchasedTableTrunk flex fdc pb20 ">
+        <div class="purchasedTableTrunk flex fdc pb20 none">
           <!-- for each order start -->
           
           <div class="purOrderedDetailTrunk flex fdc w100">

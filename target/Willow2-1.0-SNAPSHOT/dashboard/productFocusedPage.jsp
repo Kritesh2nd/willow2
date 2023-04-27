@@ -34,6 +34,7 @@
       .prodFocInfoTable{border-spacing: 0px;}
       .prodFocInfoTable tr td{text-align:center;font-family:var(--ff1);font-size:16px;border:none;padding:10px 0;}
       .prodFocInfoTable tr td:first-child{padding-left: 6px;}
+      .prodFocInfoTable tr td:nth-child(2){text-align:left;}
       .prodFocInfoTable tr:nth-child(odd) td{background: #CCC}
       .prodFocInfoTable tr:nth-child(even) td{background:var(--col6)}
       .prodFocInfoTable tr:first-child td{background:#018790;color:#fff;}

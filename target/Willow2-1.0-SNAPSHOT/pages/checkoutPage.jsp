@@ -67,6 +67,7 @@
       <div class="checkoutContainer bor">
         <div class="checkoutContainerInr flex jcsb bor">
           <!-- checkoutMainTrunk -->
+          <form action="user?page=checkout&id=<%=userid%>" class="w100 flex" method="post">
           <div class="checkoutMainTrunk bor">
             <div class="checkoutTitleTrunk pb10 bor">
               Shopping Cart.
@@ -81,24 +82,29 @@
               </tr>
               <!-- for each list start  -->
               <%
-                  int subPrice=0,finalPrice=0;
+                  int cartCount=0,subPrice=0,finalPrice=0;
               %>
 <c:forEach items="${cartProductList}" var="cartdata">
     <%
     Product p =(Product) pageContext.getAttribute("cartdata");
     subPrice += p.getPrice();
+    cartCount++;
     %>
                 <tr>
                     <td>
+                        <input type="text" value="<%=userid%>" name="userid" hidden>
+                        <input type="text" value="<%=p.getName()%>" name="name<%=cartCount%>" hidden>
                         ${cartdata.name}
                     </td>
                     <td>
+                        <input type="text" value="<%=p.getSize()%>" name="size<%=cartCount%>" hidden>
                         ${cartdata.size}
                     </td>
                     <td>
                         1
                     </td>
                     <td>
+                        <input type="text" value="<%=p.getPrice()%>" name="price<%=cartCount%>" hidden>
                         NRS ${cartdata.price}
                     </td>
                     
@@ -122,7 +128,7 @@
             <div class="checkoutTitleTrunk pb10 bor">
               Payment details
             </div>
-            <form action="" class="checkoutForm flex fdc bor" method="post">
+            <div class="checkoutForm flex fdc bor">
               <div class="checkoutFormTextSloth" form-text="email">Name</div>
               <div class="checkoutFormInputCrate bor">
                 <input type="text" class="checkoutFormInputSloth" placeholder="your name..." value="<%=username%>" name="name" required>
@@ -135,27 +141,23 @@
               <div class="checkoutFormInputCrate bor">
                 <input type="text" class="checkoutFormInputSloth" placeholder="your address..." value="<%=user.getAddress()%>" name="address" required>
               </div>
-              <div class="checkoutFormTextSloth" form-text="email">Nearby landmark</div>
-              <div class="checkoutFormInputCrate bor">
-                <input type="text" class="checkoutFormInputSloth" placeholder="nearby landmark..." name="landmark" required>
-              </div>
               <div class="checkoutFormTextSloth" form-text="email">Phone number</div>
               <div class="checkoutFormInputCrate bor">
                 <input type="text" class="checkoutFormInputSloth" placeholder="your phone number..." value="<%=user.getPhnumber()%>" name="number" required>
               </div>
               
               <div class="checkoutFromTotalTrunk flex fdc">
-                <input type="text" class="checkoutFormInputSloth" placeholder="subtotal" name="subtotal" required hidden>
+                <input type="text" class="checkoutFormInputSloth" value="<%=subPrice%>" placeholder="subtotal" name="subtotal" required hidden>
                 <div class="checkoutFormTotalCrate flex jcsb" data-total-crate="subtotal">
                   <div class="checkoutFormTotalText" data-side="left">Subtotal</div>
                   <div class="checkoutFormTotalText" data-side="right">NRS <%=subPrice%></div>
                 </div>
-                <input type="text" class="checkoutFormInputSloth" placeholder="shipping" name="shipping" required hidden>
+                <input type="text" class="checkoutFormInputSloth" value="200" placeholder="shipping" name="shipping" required hidden>
                 <div class="checkoutFormTotalCrate flex jcsb" data-total-crate="shipping">
                   <div class="checkoutFormTotalText" data-side="left">Shipping</div>
                   <div class="checkoutFormTotalText" data-side="right">NRS 200</div>
                 </div>
-                <input type="text" class="checkoutFormInputSloth" placeholder="total" name="subtotal" required hidden>
+                <input type="text" class="checkoutFormInputSloth" value="<%=finalPrice%>" placeholder="total" name="subtotal" required hidden>
                 <div class="checkoutFormLine"></div>
                 <div class="checkoutFormTotalCrate flex jcsb" data-total-crate="total">
                   <div class="checkoutFormTotalText" data-side="left">Total</div>
@@ -166,8 +168,9 @@
               <div class="checkoutFormBtnCrate bor">
                 <input type="submit" class="checkoutConfirmBtn" value="Confirm Order">
               </div>
-            </form>
+            </div>
           </div>
+        </form>
         </div>
       </div>
 

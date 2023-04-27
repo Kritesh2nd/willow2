@@ -1,7 +1,7 @@
 package Model;
 public class Review {
     private int id=0,pid=0,uid=0,star=0;
-    private String review="",date="";
+    private String review="",date="",name="";
 
     public int getId() {
         return id;
@@ -50,4 +50,13 @@ public class Review {
     public void setDate(String date) {
         this.date = date;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

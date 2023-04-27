@@ -2,6 +2,8 @@ package Service;
 
 import DBConnection.DBConnection;
 import Model.Product;
+import Model.Purchased;
+import Model.Review;
 import Model.User;
 import Support.index;
 import java.sql.PreparedStatement;
@@ -106,6 +108,40 @@ public class UserService {
              System.out.println("Error: "+e);
         }
         return userlist;
+    }
+    public List<Purchased> getSalesListByLength(int len){
+        List<Purchased> purList = new ArrayList<>();
+        int start = ((len-1)*10)+1;
+        int stop = len*10;
+        String query = "select * from purchased";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ResultSet rs = ps.executeQuery();
+            int count=1,i=1;
+            while(rs.next()){
+                Purchased pr = new Purchased();
+                pr.setId(i);
+                pr.setUid(rs.getInt("uid"));
+                pr.setPrice(rs.getInt("price"));
+                pr.setStage(rs.getInt("stage"));
+                pr.setName(rs.getString("name"));                
+                pr.setBrand(rs.getString("brand"));                
+                pr.setSize(rs.getString("size"));
+                pr.setDate(rs.getString("date"));
+                pr.setReview(rs.getString("review"));
+                
+                if(count>=start && count<=stop){
+                    purList.add(pr);
+                    i++;
+                }
+                count++;
+            }
+        }
+         catch(SQLException e){
+            e.printStackTrace();
+             System.out.println("Error: "+e);
+        }
+        return purList;
     }
     public int getPagination(){
         int lastId=1;
@@ -218,6 +254,97 @@ public class UserService {
         catch(SQLException e){
             e.printStackTrace();
         }
+    }
+    public void insertReview(Review rev){
+        String query = "insert into review(uid,pid,star,review,date) values(?,?,?,?,?)";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,rev.getUid());
+            ps.setInt(2,rev.getPid());
+            ps.setInt(3,rev.getStar());
+            ps.setString(4,rev.getReview());
+            ps.setString(5,rev.getDate());
+            ps.execute();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            System.out.println("Insert User Error : "+e);
+        }
+    }
+    public List<Review> getReviewListById(int prdId){
+        List<Review> reviewList = new ArrayList<>();
+        String query = "select * from review where pid=?";
+        query = "select * from cart as A inner join productinfo as B on A.pid = B.id where A.uid=?";
+        query = "select * from review as A inner join userinfo as B on A.uid = B.id where pid=?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,prdId);
+            ResultSet rs = ps.executeQuery();
+            int count=1;
+            while(rs.next()){
+                Review r = new Review();
+                r.setId(rs.getInt("id"));
+                r.setUid(rs.getInt("uid"));
+                r.setPid(rs.getInt("pid"));
+                r.setStar(rs.getInt("star"));
+                r.setReview(rs.getString("review"));
+                r.setDate(rs.getString("date"));
+                r.setName(rs.getString("name"));
+                reviewList.add(r);
+            }
+        }
+         catch(SQLException e){
+            e.printStackTrace();
+             System.out.println("Error: "+e);
+        }
+        return reviewList;
+    }
+     public void insertCartOrder(Purchased prd){
+        String query = "insert into purchased(uid,price,stage,name,brand,size,date,review) values(?,?,?,?,?,?,?,?)";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,prd.getUid());
+            ps.setInt(2,prd.getPrice());
+            ps.setInt(3,prd.getStage());
+            ps.setString(4,prd.getName());
+            ps.setString(5,prd.getBrand());
+            ps.setString(6,prd.getSize());
+            ps.setString(7,prd.getDate());
+            ps.setString(8,prd.getReview());
+            ps.execute();
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+            System.out.println("Insert User Error : "+e);
+        }
+    }
+    public List<Purchased> cartOrderList(int id){
+        List<Purchased> prList = new ArrayList<>();
+        String query = "select * from purchased where uid=?";
+        PreparedStatement ps = new DBConnection().getStatement(query);
+        try{
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Purchased pr = new Purchased();
+                pr.setId(rs.getInt("id"));
+                pr.setUid(rs.getInt("uid"));
+                pr.setPrice(rs.getInt("price"));
+                pr.setStage(rs.getInt("stage"));
+                pr.setName(rs.getString("name"));                
+                pr.setBrand(rs.getString("brand"));                
+                pr.setSize(rs.getString("size"));
+                pr.setDate(rs.getString("date"));
+                pr.setReview(rs.getString("review"));
+                
+                prList.add(pr);
+            }
+        }
+         catch(SQLException e){
+            e.printStackTrace();
+             System.out.println("Error: "+e);
+        }
+        return prList;
     }
     public static void main(String[] args) {
         UserService us = new UserService();

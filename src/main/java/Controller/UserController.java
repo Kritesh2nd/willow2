@@ -2,12 +2,16 @@ package Controller;
 
 import Hashing.HashPassword;
 import Model.Product;
+import Model.Purchased;
+import Model.Review;
 import Model.SizeCount;
 import Model.User;
 import Service.ProductService;
+import Service.Support;
 import Service.UserService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -199,6 +203,86 @@ public class UserController extends HttpServlet {
             out.print("prdId="+prdId+"<br/>");
             new UserService().removeCartItem(prdId);
             RequestDispatcher rd = request.getRequestDispatcher("user?page=checkoutPage&id="+userId);
+            rd.forward(request,response);
+        }
+        else if(page.equalsIgnoreCase("insertReview")){
+            out.print("insert review page<br/>");
+            Review rev = new Review();
+            rev.setPid(Integer.parseInt(request.getParameter("productid")));
+            rev.setUid(Integer.parseInt(request.getParameter("userid")));
+            rev.setStar(Integer.parseInt(request.getParameter("starvalue")));
+            rev.setReview(request.getParameter("review"));
+            rev.setDate(new Support().getDate());
+            
+            out.print(rev.getPid()+"<br/>");
+            out.print(rev.getUid()+"<br/>");
+            out.print(rev.getStar()+"<br/>");
+            out.print(rev.getReview()+"<br/>");
+            out.print(rev.getDate()+"<br/>");
+            
+            new UserService().insertReview(rev);
+            
+            out.print("Review inserted");
+            response.sendRedirect("user?page=productDetailsPage&id="+rev.getPid());
+        }
+        else if(page.equalsIgnoreCase("checkout")){
+            out.print("checkout page <br/> ");
+            
+            String userIdStr = request.getParameter("userid");
+            int userid=0;
+            if(userIdStr!=null){
+                userid = Integer.parseInt(userIdStr);
+            }
+
+            List<User> cartlist = new UserService().getCartListByUserId(userid);
+            int cartSize = cartlist.size();
+//            List<Purchased> prlist = new ArrayList<>();
+            try{
+            for(int a=1;a<=cartSize;a++){
+                out.print(a+"<br/>");
+                Purchased pr = new Purchased();
+                pr.setName(request.getParameter("name"+a));
+                pr.setSize(request.getParameter("size"+a));
+                pr.setUid(userid);
+                pr.setDate(new Support().getDate());
+//                pr.setPrice(Integer.parseInt(request.getParameter("price"+a)));
+                
+                out.print(pr.getName()+"<br/>");
+                out.print(pr.getSize()+"<br/>");
+                out.print(pr.getPrice()+"<br/>");
+                out.print(pr.getUid()+"<br/>");
+                new UserService().insertCartOrder(pr);
+                out.print("Data inserted "+pr.getName());
+            }
+            }
+            catch(Exception e){
+                out.print("ERX: "+e);
+            }
+            response.sendRedirect("user?page=purchasedPage&id="+userid);
+//            RequestDispatcher rd = request.getRequestDispatcher("user?page=purchasedPage");
+//            rd.forward(request,response);
+        }
+        else if(page.equalsIgnoreCase("purchasedPage")){
+            out.print("purchasedPage pp <br/>");
+            
+            String userIdStr = request.getParameter("id");
+            int userid=0;
+            if(userIdStr!=null){
+                userid = Integer.parseInt(userIdStr);
+            }
+            out.print(userid);
+            try{
+            List<Purchased> prList = new UserService().cartOrderList(userid);
+            
+            request.setAttribute("purchasedList", prList);
+            
+            out.print("size "+prList.size());
+            }
+            catch(Exception e){
+                out.print(e);
+            }
+            
+            RequestDispatcher rd = request.getRequestDispatcher("pages/purchasedPage.jsp");
             rd.forward(request,response);
         }
         else{

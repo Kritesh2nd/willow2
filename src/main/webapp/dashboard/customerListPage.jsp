@@ -67,9 +67,7 @@
                 <td>Id</td>
                 <td>Name</td>
                 <td>Email</td>
-                <td>Product</td>
-                <td>Review</td>
-                <td>Satisfactory</td>
+               
                 <td>Address</td>
                 <td>Number</td>
                 <td>Details</td>
@@ -85,15 +83,7 @@
                 <td>
                   ${user.email}
                 </td>
-                <td>
-                  17 x-x
-                </td>
-                <td>
-                  23 x-x
-                </td>
-                <td>
-                  4.7 x-x
-                </td>
+        
                 <td>
                   ${user.address}
                 </td>

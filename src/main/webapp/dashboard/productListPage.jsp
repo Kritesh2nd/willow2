@@ -34,6 +34,7 @@
       .prodListInfoTable{border-spacing: 0px;}
       .prodListInfoTable tr td{text-align:center;font-family:var(--ff1);font-size:16px;border:none;padding:10px 0;}
       .prodListInfoTable tr td:first-child{padding-left: 6px;}
+      .prodListInfoTable tr td:nth-child(2){text-align:left;}
       .prodListInfoTable tr:nth-child(odd) td{background: #CCC}
       .prodListInfoTable tr:nth-child(even) td{background:var(--col6)}
       .prodListInfoTable tr:first-child td{background:#018790;color:#fff;}
@@ -69,8 +70,6 @@
                   <td>Brand</td>
                   <td>Price</td>
                   <td>Discount</td>
-                  <td>Avilable size</td>
-                  <td>Total count</td>
                   <td>Visibility</td>
                   <td>Details</td>
                 </tr>
@@ -90,12 +89,6 @@
                   </td>
                   <td>
                     ${prlist.discount}%
-                  </td>
-                  <td>
-                    29,30,31,32,33 x-x
-                  </td>
-                  <td>
-                    18 x-x
                   </td>
                   <td>
                     ${prlist.visibility}

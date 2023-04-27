@@ -156,4 +156,8 @@ public class Product {
         this.focused3 = focused3;
     }
 
+    public int getStage() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

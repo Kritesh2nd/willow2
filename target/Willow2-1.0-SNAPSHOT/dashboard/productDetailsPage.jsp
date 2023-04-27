@@ -1,5 +1,14 @@
+<%@page import="Service.UserService"%>
+<%@page import="Model.Review"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+String prdIdStr = request.getParameter("id");
+int prdId = 0;
+if(prdIdStr!=null){prdId = Integer.parseInt(prdIdStr);}
+List<Review> reviewList = new UserService().getReviewListById(prdId);
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -211,16 +220,16 @@
             </div>
             <div class="prodDetSideTrunk flex fdc pl25 bor out" data-side="review">
               <!-- review for each start -->
-
+              <%for(Review rev : reviewList){%>
               <div class="prodDetReviewCrate flex mb10 bor">
                 <div class="prodDetRevProfileCrate mr8">
                   <div class="prodDetRevProfileSloth borx3">
-                    <img src="../image/tshirt2.jpg" alt="" class="w100">
+                    <img src="image/tshirt2.jpg" alt="" class="w100">
                   </div>
                 </div>
                 <div class="prodDetRevTextCrate fg1 flex fdc bor">
                   <div class="prodDetRevText flex" data-rev="name">
-                    Kritesh Thapa
+                    <%=rev.getName()%>
                     <div class="prodDetRevTextIcon bor ml5">
                       <img src="../icons/start-fill100.png" alt="" class="w100">
                     </div>
@@ -229,10 +238,10 @@
                     </div>
                   </div>
                   <div class="prodDetRevText" data-rev="review">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi, odit qui amet debitis quae eaque sunt sint, voluptates accusamus eveniet, eos commodi modi! Quia itaque doloribus, quas sunt hic voluptate.
+                    <%=rev.getReview()%>
                   </div>
                 </div>
-                <div class="prodDetRevDotCrate flex fdc bor">
+                <div class="prodDetRevDotCrate flex fdc bor none">
                   <div class="prodDetRevEllipsisCrate rel p3 bor cup">
                     |
                     <div class="prodDetRevBtnOptCrate abs flex fdc borx3 br2">
@@ -243,7 +252,7 @@
                   </div>
                 </div>
               </div>
-
+              <%}%>
               <!-- review for each end -->
             </div>
           </div>

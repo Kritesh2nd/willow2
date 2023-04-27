@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Product;
+import Model.Purchased;
 import Model.SizeCount;
 import Model.User;
 import Service.ProductService;
@@ -112,6 +113,31 @@ public class adminControl extends HttpServlet {@Override
         
         else if(page.equalsIgnoreCase("salesListPage")){
             out.print("sales list </br>");
+            String idd = request.getParameter("id");
+            int id = 1;
+            if(idd == null){idd="1";}
+            else{id = Integer.parseInt(idd);}
+            
+            int pagination = new UserService().getPagination();
+            int intId = pagination / 10;
+            int doubleId = pagination % 10;
+            if(doubleId > 0){intId++;}
+            
+            List<Purchased> purList = new UserService().getSalesListByLength(id);
+            out.println("size = "+purList.size()+id+"<br/>");
+            
+            request.setAttribute("paginationLen",intId);
+            
+            HttpSession sess = request.getSession();
+            sess.setAttribute("paginationLenSess",intId);
+            
+            HttpSession sess1 = request.getSession();
+            sess1.setAttribute("activePageId",idd);
+            
+            request.setAttribute("saleslist", purList);
+            
+           
+            
             RequestDispatcher rd = request.getRequestDispatcher("dashboard/salesListPage.jsp");
             rd.forward(request,response);
         }

@@ -57,11 +57,11 @@ else if(pageVal.equals("salesListPage")){salesListCss = "dashActive";}
         Customer List
       </a>
 
-      <div class="dashLinkLine none"></div>
-      <div class="dashLinkTitleCrate ff1 ptb7 pt20 bor none">
+      <div class="dashLinkLine"></div>
+      <div class="dashLinkTitleCrate ff1 ptb7 pt20 bor">
         Sales
       </div>
-      <a href="admin?page=salesListPage" class="dashLinkTitleSloth flex bor <%=salesListCss%> none">
+      <a href="admin?page=salesListPage" class="dashLinkTitleSloth flex bor <%=salesListCss%>">
         Sales List
       </a>
 

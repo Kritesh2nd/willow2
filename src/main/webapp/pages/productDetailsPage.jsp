@@ -1,6 +1,14 @@
+<%@page import="Model.Review"%>
 <%@page import="Model.SizeCount"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+String prdIdStr = request.getParameter("id");
+int prdId = 0;
+if(prdIdStr!=null){prdId = Integer.parseInt(prdIdStr);}
+List<Review> reviewList = new UserService().getReviewListById(prdId);
+
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -165,10 +173,14 @@
                 <div class="prdDtlRevAddNameSloth">
                     <%=username%>
                 </div>
-              <form action="" class="prdDtlAddRevForm flex fdc bor" method="post">
+                
+              <form action="user?page=insertReview" class="prdDtlAddRevForm flex fdc bor" method="post">
+                  <input type="text" value="${productdetail.id}" name="productid" hidden>
+                  <input type="text" value="<%=userid%>" name="userid" hidden>
+                  <input type="text" class="prdDtlAddRevStartInputHidden" value="0" name="starvalue" hidden>
                 <div class="prdDtlAddRevStartTrunk flex ptb10 aic">
                   <div class="prdDtlAddRevStartName pr10">Review</div>
-                  <input type="text" class="prdDtlAddRevStartInputHidden" value="0" name="starvalue" hidden>
+                  
                   <img src="icons//start-fill0.png" alt="" data-star="white" class="prdDtlAddRevStartIcon" onclick="prdDtlRevAddStartValue(1)">
                   <img src="icons//start-fill0.png" alt="" data-star="white" class="prdDtlAddRevStartIcon" onclick="prdDtlRevAddStartValue(2)">
                   <img src="icons//start-fill0.png" alt="" data-star="white" class="prdDtlAddRevStartIcon" onclick="prdDtlRevAddStartValue(3)">
@@ -176,43 +188,47 @@
                   <img src="icons//start-fill0.png" alt="" data-star="white" class="prdDtlAddRevStartIcon" onclick="prdDtlRevAddStartValue(5)">
                 </div>
                 <div class="prdDtlAddRevTextCrate flex">
-                  <textarea name="" class="prdDtlAddRevTextSloth" placeholder="write a review..." name="reviewdata">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ducimus esse facilis error, quasi iste excepturi quam fugit doloribus sunt optio temporibus libero velit? Maxime doloremque consequuntur ex totam aliquid.</textarea>
+                  <textarea class="prdDtlAddRevTextSloth" placeholder="write a review..." name="review">Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem ducimus esse facilis error, quasi iste excepturi quam fugit doloribus sunt optio temporibus libero velit? Maxime doloremque consequuntur ex totam aliquid.</textarea>
                 </div>
                 <div class="prdDtlAddRevButtonCrate pt20">
                   <input type="submit" class="prdDtlAddRevSubmitBtn" value="Submit">
                 </div>
               </form>
+                
             </div>
           </div>
 
 
 
           <!-- Review For Each Start -->
+          <%for(Review rev : reviewList){%>
           <div class="prdDtlRevTrunkInr flex fdc w100 bor">
             <div class="prdDtlRevCrate flex fdc w100 bor">
               <div class="prdDtlRevNameCrate flex bor">
                 <div class="prdDtlRevNameSloth pr15 bor">
-                  Kritesh Thapa
+                  <%=rev.getName()%>
                 </div>
                 <div class="prdDtlRevStartSloth flexmid bor">
-                  <img src="icons//start-fill100.png" alt="" data-star="balck" class="prdDtlRevStartIcon">
-                  <img src="icons//start-fill100.png" alt="" data-star="balck" class="prdDtlRevStartIcon">
-                  <img src="icons//start-fill100.png" alt="" data-star="balck" class="prdDtlRevStartIcon">
-                  <img src="icons//start-fill100.png" alt="" data-star="balck" class="prdDtlRevStartIcon">
-                  <img src="icons//start-fill0.png" alt="" data-star="white" class="prdDtlRevStartIcon">
+                  <%for(int a=0;a<rev.getStar();a++){%>
+                    <img src="icons//start-fill100.png" alt="" data-star="balck" class="prdDtlRevStartIcon">
+                  <%}%>
+                  <%for(int b=rev.getStar();b<5;b++){%>
+                    <img src="icons//start-fill0.png" alt="" data-star="white" class="prdDtlRevStartIcon">
+                  <%}%>
                 </div>
                 <div class="prdDtlRevDateSloth pl15 bor">
-                  20/20/200
+                  <%=rev.getDate()%>
                 </div>
               </div>
               <div class="prdDtlRevReviewSloth pt6 bor">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore soluta sunt eveniet corporis similique, repellendus enim debitis vitae culpa quisquam suscipit? Nemo architecto rem dolorum dolore sint deserunt possimus totam!
+                <%=rev.getReview()%>
               </div>
             </div>
             <div class="prdDtlRevLine bor"></div>
           </div>
+          <%}%>
           <!-- Review For Each End -->
-          <div class="prdDtlRevTrunkInr flex fdc w100 bor">
+          <div class="prdDtlRevTrunkInr flex fdc w100 bor none">
             <div class="prdDtlRevCrate flex fdc w100 bor">
               <div class="prdDtlRevNameCrate flex bor">
                 <div class="prdDtlRevNameSloth pr15 bor">

@@ -108,61 +108,20 @@ int cartSize = cartlist.size();
                 <div class="nav_signin_mid bor">
                   <ul class="nav_signin_ul bor">
                     <li class="nav_sigin_li bor flex">
-                      <img src="../icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
+                      <img src="icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
                       <a href="#" class="nav_signin_ahr flex bor rel">
-                        Purchase
+                        Cart
                         <span class="nav_sigin_li_span abs"></span>
                       </a>
                     </li>
                     <li class="nav_sigin_li bor flex">
-                      <img src="../icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
+                      <img src="icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
                       <a href="#" class="nav_signin_ahr flex bor rel">
                         Purchase
                         <span class="nav_sigin_li_span abs"></span>
                       </a>
                     </li>
-                    <li class="nav_sigin_li bor flex">
-                      <img src="../icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
-                      <a href="#" class="nav_signin_ahr flex bor rel">
-                        Purchase
-                        <span class="nav_sigin_li_span abs"></span>
-                      </a>
-                    </li>
-                    <li class="nav_sigin_li bor flex">
-                      <img src="../icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
-                      <a href="#" class="nav_signin_ahr flex bor rel">
-                        Purchase
-                        <span class="nav_sigin_li_span abs"></span>
-                      </a>
-                    </li>
-                    <li class="nav_sigin_li bor flex">
-                      <img src="../icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
-                      <a href="#" class="nav_signin_ahr flex bor rel">
-                        Purchase
-                        <span class="nav_sigin_li_span abs"></span>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="nav_signin_mid_title bor">
-                  Account Setting
-                </div>
-                <div class="nav_signin_mid bor">
-                  <ul class="nav_signin_ul bor">
-                    <li class="nav_sigin_li bor flex">
-                      <img src="../icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
-                      <a href="#" class="nav_signin_ahr flex bor rel">
-                        Purchase
-                        <span class="nav_sigin_li_span abs"></span>
-                      </a>
-                    </li>
-                    <li class="nav_sigin_li bor flex">
-                      <img src="../icons/cart.png" alt="" class="nav_sigin_logo nav_sigin_logo_cart bor">
-                      <a href="#" class="nav_signin_ahr flex bor rel">
-                        Purchase
-                        <span class="nav_sigin_li_span abs"></span>
-                      </a>
-                    </li>
+                    
                   </ul>
                 </div>
               </div>
@@ -177,7 +136,7 @@ int cartSize = cartlist.size();
               <span class="nav_cart_count flexmid abs borr" data-cart="<%=cartSize%>"><%=cartSize%></span>
             </li>
             <li class="nav_li bor flexmid">
-              <a href="user?page=purchased" class="nav_ahr bor flexmid">Purchased</a>&nbsp;
+              <a href="user?page=purchasedPage&id=<%=userid%>" class="nav_ahr bor flexmid">Purchased</a>&nbsp;
               <img src="icons/package.png" alt="" class="nav_logo nav_logo_package bor">
             </li>
             
